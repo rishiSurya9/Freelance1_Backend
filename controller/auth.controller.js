@@ -14,3 +14,20 @@ export const signup = async (req,res) => {
         res.status(500).json("error occured");
     }
 }
+export const login = async (req,res) => {
+    const {email,password} = (req.body);
+    try{
+        const user = await User.findOne({email});
+        if(!user){
+            res.status(404).json("user not found");
+        }
+        const isMatch = await bcrypt.compare(password,user.password);
+        if(!isMatch){
+            res.status(401).json("invalid credentials");
+        }
+       res.status(200).json("login successful");
+    }
+    catch(err){
+        res.status(500).json("error occured");
+    }
+}
