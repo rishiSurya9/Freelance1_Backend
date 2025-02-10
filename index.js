@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import appointment from './routes/appointment.route.js';
@@ -13,6 +14,8 @@ mongoose.connect(process.env.MONGO).then(()=>{
 }).catch((err)=>{
     console.log(err);
 });
+app.use(express.json());
+app.use(cookieParser());
 //Appointment Router
 app.use('/api/appointment',appointment);
 app.use('/api/auth',auth);

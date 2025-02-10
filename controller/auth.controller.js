@@ -12,6 +12,7 @@ export const signup = async (req,res) => {
     }
     catch(err){
         res.status(500).json("error occured");
+        console.log(err);
     }
 }
 export const login = async (req,res) => {
@@ -25,9 +26,12 @@ export const login = async (req,res) => {
         if(!isMatch){
             res.status(401).json("invalid credentials");
         }
-       res.status(200).json("login successful");
+        const token = jwt.sign({id:user._id},process.env.JWT_SECRET);
+        const {password:pass, ...userData} = user._doc;
+       res.cookie('access_token',token).status(200).json("login successful");
     }
     catch(err){
         res.status(500).json("error occured");
+        console.log(err);
     }
 }
