@@ -3,9 +3,9 @@ import User from '../model/user.model.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 export const signup = async (req,res) => {
-    const {name,email,password} = (req.body);
+    const {username,email,password} = (req.body);
     const SaltedPass = bcrypt.hashSync(password,10);
-    const newUser = new User({name,email,password:SaltedPass});
+    const newUser = new User({username,email,password:SaltedPass});
     try{
         await newUser.save();
         res.status(200).json("user created successfully");
