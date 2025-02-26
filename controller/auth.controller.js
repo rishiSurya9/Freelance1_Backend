@@ -29,8 +29,14 @@ export const login = async (req, res) => {
             return res.status(401).json({ message: "Invalid credentials" }); 
         }
 
-        // Generate JWT Token
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+        // Declare token variable
+        let token;
+
+        if (email === "Aniket@Hospital.com") {
+            token = "admin"; // Assign "admin" token for this specific email
+        } else {
+            token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+        }
 
         // Send response with cookie
         const { password: pass, ...userData } = user._doc;
