@@ -1,5 +1,6 @@
 import express from 'express';
 import Appointment from '../model/appointment.model.js'
+import jwt from 'jsonwebtoken';
 export const createAppointment = async(req,res)=>{
    const appointment = new Appointment(req.body);
    await appointment.save();
@@ -15,10 +16,24 @@ export const getAppointments = async (req, res) => {
  };
  
  export const verifyAdmin = (req, res, next) => {
-  const accessToken = req.cookies?.access_token;
+  const token = req.cookies?.access_token;
 
-  if (!accessToken || accessToken !== "admin") {
-    return res.status(403).json({ message: "Access denied. Admins only." });
+  if (!token) {
+      return res.status(403).json({ message: "Access denied. No token provided." });
   }
-  next(); // Proceed if authenticated
+
+  try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      console.log("Decoded token:", decoded);
+
+      if (decoded.role !== "admin") {
+          return res.status(403).json({ message: "Access denied. Admins only." });
+      }
+
+      req.user = decoded;
+      next();
+  } catch (error) {
+      console.log("Invalid token:", error.message);
+      return res.status(403).json({ message: "Invalid token." });
+  }
 };

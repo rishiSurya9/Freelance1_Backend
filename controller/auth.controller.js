@@ -16,38 +16,39 @@ export const signup = async (req,res) => {
     }
 }
 export const login = async (req, res) => {
-    const { email, password } = req.body; 
-    
+    const { email, password } = req.body;
+
     try {
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).json({ message: "User not found" }); 
+            return res.status(404).json({ message: "User not found" });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(401).json({ message: "Invalid credentials" }); 
+            return res.status(401).json({ message: "Invalid credentials" });
         }
 
-        // Declare token variable
-        let token;
+        // Generate JWT token with role
+        const role = email === "Aniket@Hospital.com" ? "admin" : "user";
+        const token = jwt.sign(
+            { id: user._id, role }, 
+            process.env.JWT_SECRET, 
+            { expiresIn: "7d" }
+        );
 
-        if (email === "Aniket@Hospital.com") {
-            token = "admin"; // Assign "admin" token for this specific email
-        } else {
-            token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
-        }
-
-        // Send response with cookie
+        // Remove password from response
         const { password: pass, ...userData } = user._doc;
+
+        // Set cookie with token
         res.cookie("access_token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "none"
-        }).status(200).json(userData);
+            sameSite: "lax"
+        }).status(200).json({ ...userData, role });
 
     } catch (err) {
-        console.error("Login Error:", err); 
+        console.error("Login Error:", err);
         return res.status(500).json({ message: "An error occurred", error: err.message });
     }
 };

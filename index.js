@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import jwt from 'jsonwebtoken';
 import appointment from './routes/appointment.route.js';
 import auth from './routes/auth.route.js';
 const app =  express();
