@@ -2,6 +2,9 @@ import express from 'express';
 import User from '../model/user.model.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+
+
+
 export const signup = async (req,res) => {
     const {username,email,password} = (req.body);
     const SaltedPass = bcrypt.hashSync(password,10);
@@ -12,9 +15,10 @@ export const signup = async (req,res) => {
     }
     catch(err){
         return res.status(500).json("error occured");
-        console.log(err);
     }
 }
+
+
 export const login = async (req, res) => {
     const { email, password } = req.body; 
     
@@ -32,7 +36,7 @@ export const login = async (req, res) => {
         // Declare token variable
         let token;
 
-        if (email === "Aniket@Hospital.com") {
+        if (email === "aniket@hospital.com") {
             token = "admin"; // Assign "admin" token for this specific email
         } else {
             token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
