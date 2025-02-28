@@ -36,7 +36,7 @@ export const login = async (req, res) => {
         // Declare token variable
         let token;
 
-        if (email === "aniket@hospital.com") {
+        if (email === "Aniket@Hospital.com") {
             token = "admin"; // Assign "admin" token for this specific email
         } else {
             token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });

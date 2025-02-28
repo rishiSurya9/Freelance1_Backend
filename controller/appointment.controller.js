@@ -8,6 +8,7 @@ export const createAppointment = async(req,res)=>{
    await appointment.save();
    res.status(201).json(appointment);
 };
+
 export const getAppointments = async (req, res) => {
    try {
      const appointments = await Appointment.find();
