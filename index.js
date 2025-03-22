@@ -43,5 +43,5 @@ app.use(cookieParser());
 app.use('/api/appointment',appointment);
 app.use('/api/auth',auth);
 app.listen(PORT, () => { 
-    console.log('Server is running on port ',port);    
+    console.log('Server is running on port ',PORT);    
 });
