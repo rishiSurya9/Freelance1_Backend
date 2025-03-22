@@ -9,7 +9,7 @@ import auth from './routes/auth.route.js';
 const app =  express();
 dotenv.config();
 app.use(express.json());
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 // Allowed origins for CORS
 const allowedOrigins = ["http://localhost:5173", "https://rentnow-indol.vercel.app"];
@@ -42,6 +42,6 @@ app.use(cookieParser());
 //Appointment Router
 app.use('/api/appointment',appointment);
 app.use('/api/auth',auth);
-app.listen(port, () => { 
-    console.log('Server is running on port 5000');    
+app.listen(PORT, () => { 
+    console.log('Server is running on port ',port);    
 });
