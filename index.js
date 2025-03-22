@@ -9,7 +9,7 @@ import auth from './routes/auth.route.js';
 const app =  express();
 dotenv.config();
 app.use(express.json());
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 
 // Allowed origins for CORS
 const allowedOrigins = ["http://localhost:5173", "https://rentnow-indol.vercel.app"];
