@@ -41,6 +41,6 @@ app.use(cookieParser());
 //Appointment Router
 app.use('/api/appointment',appointment);
 app.use('/api/auth',auth);
-app.listen(5000, () => { 
+app.listen(process.env.PORT || 5000, () => { 
     console.log('Server is running on port 5000');    
 });
