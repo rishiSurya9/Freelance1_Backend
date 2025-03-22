@@ -2,6 +2,8 @@ import express from 'express';
 import User from '../model/user.model.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+
+
 export const signup = async (req,res) => {
     const {username,email,password} = (req.body);
     const SaltedPass = bcrypt.hashSync(password,10);
