@@ -15,19 +15,19 @@ const PORT = process.env.PORT || 8080;
 // const allowedOrigins = ["http://localhost:5173", "https://rentnow-indol.vercel.app"];
 
 app.use(cors({
-    origin: "*", // Allows all origins
+    origin: "https://aniket-hospital.vercel.app", // Allows all origins
     credentials:true, // Allows credentials
     methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
     allowedHeaders: ["Content-Type", "Authorization"] // Allowed headers
 }));
 // Set custom CORS headers
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin',  "http://localhost:5173"); // Allow specific frontend origin
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow necessary methods
-//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow necessary headers
-//     res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials
-//     next();
-// });
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin',  "https://aniket-hospital.vercel.app"); // Allow specific frontend origin
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Allow necessary methods
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type'); // Allow necessary headers
+    res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials
+    next();
+});
 
 // Set custom CORS headers
 
