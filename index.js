@@ -15,9 +15,10 @@ const PORT = process.env.PORT || 8080;
 // const allowedOrigins = ["http://localhost:5173", "https://rentnow-indol.vercel.app"];
 
 app.use(cors({
-    origin: "*",
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
+    origin: "*", // Allows all origins
+    credentials:true, // Allows credentials
+    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
+    allowedHeaders: ["Content-Type", "Authorization"] // Allowed headers
 }));
 // Set custom CORS headers
 // app.use((req, res, next) => {
